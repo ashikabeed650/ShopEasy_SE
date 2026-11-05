@@ -180,28 +180,25 @@ I would like to thank **CodeAlpha** for providing this opportunity to build a re
 
 ---
 
-## 🚀 Deploying to Vercel
+## 🚀 Deploying the API to Render and the frontend to Vercel
 
-The frontend and backend are separate Vercel projects in this repository. Deploy the backend first, then configure the frontend to use its URL.
+The React frontend can remain on Vercel while the Express API runs on Render and uses MongoDB Atlas. MongoDB Compass is the desktop client for viewing and managing the Atlas database; it is not the database server. The repository-root `render.yaml` defines the `shopeasy-api` web service.
 
-### 1. Prepare MongoDB and seed products
+### 1. Deploy the backend to Render
 
-Create a MongoDB database and allow connections from your hosting environment. Copy `backend/.env.example` to `backend/.env`, enter the MongoDB connection string and a long, private JWT secret, then run `npm run seed` from the `backend` directory. Never commit `.env` or enter backend secrets in the frontend project.
+- In Render, create a **Blueprint** from this GitHub repository and apply the `render.yaml` configuration. The service uses the `backend` directory, `npm ci`, and `npm start`.
+- Set the service's `MONGO_URI` to the Atlas connection string for the `shopeasy` database. URL-encode special characters in the database user's password. Use a database user with only the permissions the app needs; never use an Atlas website password.
+- Render generates a private `JWT_SECRET` for the service. Keep backend secrets out of the frontend project and source control.
+- In Atlas **Network Access**, allow the Render service's outbound IP addresses. Prefer the service's listed/static outbound addresses; do not allow all IPs (`0.0.0.0/0`) unless you intentionally accept that exposure.
+- After deployment, verify the Render service root responds and `/api/products` returns the product list.
 
-### 2. Deploy the backend
+### 2. Point the Vercel frontend to Render
 
-- Import the repository as a new Vercel project and set **Root Directory** to `backend`.
-- Add `MONGO_URI` and `JWT_SECRET` under the backend project's **Settings → Environment Variables**.
-- Deploy. The backend's `vercel.json` configures the API function and includes the product images.
-- Verify the deployment root responds, and that `/api/products` returns the seeded products.
+- In the Vercel frontend project's **Settings → Environment Variables**, set `VITE_API_URL` to the Render service URL followed by `/api` (for example, `https://<render-service>.onrender.com/api`).
+- Redeploy the frontend so the new API URL is included in its build. The repository-root `vercel.json` serves the client when the Vercel project's Root Directory is the repository root; alternatively, use `client` and its Vercel configuration.
+- The client Vercel rewrite supports direct visits and refreshes on routes such as `/products` and `/cart`.
 
-### 3. Deploy the frontend
-
-- Import the same repository as a second Vercel project. The repository-root `vercel.json` builds and serves the frontend when the project's **Root Directory** is left at the repository root. Alternatively, set **Root Directory** to `client` to use the client-specific Vercel configuration.
-- `client/.env.production` sets the public `VITE_API_URL` to the backend deployment URL followed by `/api`. Update it if you use a different backend, or override `VITE_API_URL` under the frontend project's **Settings → Environment Variables**.
-- Deploy. The client Vercel rewrite supports direct visits and refreshes on routes such as `/products` and `/cart`.
-
-If the product API returns a database error, check the backend project's `MONGO_URI` and MongoDB network access.
+For local development with MongoDB Compass, use the local connection in `backend/.env` and the local API URL in the client environment. Keep local and Atlas connection strings separate.
 
 ## 📝 Recent updates
 
