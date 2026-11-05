@@ -138,6 +138,9 @@ For local frontend development, copy `client/.env.example` to `client/.env` and 
 
 - GET `/api/products`
 - GET `/api/products/:id`
+- POST `/api/products` (administrator)
+- PUT `/api/products/:id` (administrator)
+- DELETE `/api/products/:id` (administrator; products in order history are retained)
 
 ### Orders
 
@@ -207,7 +210,21 @@ Create a MongoDB database and allow connections from your hosting environment. C
 - Re-added user greeting in the navigation bar: "Hello, <name>" with a Logout button (client/src/components/Navbar.jsx).
 - Fixed order Authorization flow by automatically attaching the JWT token to outgoing API requests via a request interceptor (client/src/api/api.js). This prevents malformed/masked headers and 401s when placing orders.
 - Address-on-map checkout remains available (react-leaflet + Nominatim reverse geocoding). Orders now store address.display_name and coordinates in the backend.
-- Admin UI and admin product endpoints remain removed per earlier request.
+- Added administrator-only product creation, editing, and deletion at `/admin`.
+- Product management endpoints require a signed-in user whose MongoDB `role` is `admin`.
+
+### Granting administrator access
+
+Register the account normally, then use MongoDB Shell against the configured database:
+
+```javascript
+db.users.updateOne(
+  { email: "admin@example.com" },
+  { $set: { role: "admin" } }
+)
+```
+
+Sign out and sign back in to refresh the role shown in the frontend. The backend checks the user role on every product write request. Product deletion is rejected when an order references that product, preserving order history.
 
 Notes:
 - The API client now appends Authorization: Bearer <token> from localStorage. If you prefer explicit header control per-call, revert the interceptor in client/src/api/api.js.

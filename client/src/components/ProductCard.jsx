@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { API_ORIGIN } from "../api/api";
+import { getProductImageUrl } from "../api/api";
 
 function ProductCard({ product }) {
   const { addToCart, cart } = useCart();
@@ -26,7 +26,7 @@ function ProductCard({ product }) {
         style={{ textDecoration: "none", color: "inherit" }}
       >
         <img
-          src={`${API_ORIGIN}${product.image}`}
+          src={getProductImageUrl(product.image)}
           alt={product.name}
           style={styles.image}
         />

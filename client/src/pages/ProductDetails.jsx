@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import api, { API_ORIGIN } from "../api/api";
+import api, { getProductImageUrl } from "../api/api";
 import { useCart } from "../context/CartContext";
 import RelatedProducts from "../components/RelatedProducts";
 
@@ -80,7 +80,7 @@ function ProductDetails() {
       <div style={styles.container}>
         <div style={styles.imageSection}>
           <img
-            src={`${API_ORIGIN}${product.image}`}
+            src={getProductImageUrl(product.image)}
             alt={product.name}
             style={styles.image}
           />

@@ -56,6 +56,12 @@ function Navbar() {
           📦 Products
         </Link>
 
+        {user?.role === "admin" && (
+          <Link to="/admin" style={styles.link}>
+            Admin
+          </Link>
+        )}
+
         <Link to="/cart" style={styles.link}>
           🛒 Cart
           <span style={styles.badge}>{cart.length}</span>

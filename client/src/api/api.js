@@ -10,6 +10,8 @@ export const API_URL = (
   configuredApiUrl || "http://localhost:5000/api"
 ).replace(/\/+$/, "");
 export const API_ORIGIN = API_URL.replace(/\/api$/i, "");
+export const getProductImageUrl = (image) =>
+  /^https?:\/\//i.test(image) ? image : `${API_ORIGIN}${image}`;
 
 const api = axios.create({
   baseURL: API_URL,
