@@ -12,9 +12,6 @@ import orderRoutes from "./routes/orderRoutes.js";
 
 dotenv.config();
 
-// Connect MongoDB
-connectDB();
-
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
