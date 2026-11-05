@@ -95,11 +95,10 @@ git clone https://github.com/ashikabeed650/CodeAlpha_SimpleEcommerceStore.git
 ```bash
 cd backend
 npm install
-npm run seed
 npm run dev
 ```
 
-Before seeding, copy `backend/.env.example` to `backend/.env` and set `MONGO_URI` and `JWT_SECRET`. The seed command adds missing sample products and does not delete existing products.
+For local development with MongoDB Compass, start your local MongoDB server, then copy `backend/.env.example` to `backend/.env`. The example connects to `mongodb://127.0.0.1:27017/shopeasy` on port `5055`. Set a private `JWT_SECRET`. To add any missing sample products, run `npm run seed` from `backend`; it does not delete existing products.
 
 ### Frontend Setup
 
@@ -109,7 +108,7 @@ npm install
 npm run dev
 ```
 
-For local frontend development, copy `client/.env.example` to `client/.env` and set `VITE_API_URL=http://localhost:5000/api`.
+For local frontend development, copy `client/.env.example` to `client/.env`; it points to the local backend at `http://localhost:5055/api`.
 
 ---
 
