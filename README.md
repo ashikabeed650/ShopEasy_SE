@@ -199,10 +199,10 @@ Create a MongoDB database and allow connections from your hosting environment. C
 ### 3. Deploy the frontend
 
 - Import the same repository as a second Vercel project and set **Root Directory** to `client`.
-- Add `VITE_API_URL` under **Settings → Environment Variables**, set to the backend deployment URL followed by `/api` (for example, `https://your-backend-project.vercel.app/api`).
+- `client/.env.production` sets the public `VITE_API_URL` to the backend deployment URL followed by `/api`. Update it if you use a different backend, or override `VITE_API_URL` under the frontend project's **Settings → Environment Variables**.
 - Deploy. The client Vercel rewrite supports direct visits and refreshes on routes such as `/products` and `/cart`.
 
-`VITE_API_URL` is required for production builds. If the frontend build reports it missing, add it to the frontend project's Vercel environment variables and redeploy. If the product API returns a database error, check the backend project's `MONGO_URI` and MongoDB network access.
+If the product API returns a database error, check the backend project's `MONGO_URI` and MongoDB network access.
 
 ## 📝 Recent updates
 
