@@ -198,7 +198,7 @@ Create a MongoDB database and allow connections from your hosting environment. C
 
 ### 3. Deploy the frontend
 
-- Import the same repository as a second Vercel project and set **Root Directory** to `client`.
+- Import the same repository as a second Vercel project. The repository-root `vercel.json` builds and serves the frontend when the project's **Root Directory** is left at the repository root. Alternatively, set **Root Directory** to `client` to use the client-specific Vercel configuration.
 - `client/.env.production` sets the public `VITE_API_URL` to the backend deployment URL followed by `/api`. Update it if you use a different backend, or override `VITE_API_URL` under the frontend project's **Settings → Environment Variables**.
 - Deploy. The client Vercel rewrite supports direct visits and refreshes on routes such as `/products` and `/cart`.
 
