@@ -152,7 +152,7 @@ For local frontend development, copy `client/.env.example` to `client/.env`; it 
 
 **Ashik Abeed**
 
-Web Development Intern – CodeAlpha
+
 
 📧 Email: ashikabeed650@gmail.com
 
@@ -160,25 +160,16 @@ Web Development Intern – CodeAlpha
 
 ---
 
-## 📌 Internship Task
-
-**Task 1 – Simple E-commerce Store**
-
-Developed as part of the **CodeAlpha Web Development Internship**.
 
 ---
 
 ## 📄 License
 
-This project is created for educational and internship purposes under the CodeAlpha Web Development Internship Program.
+This project is created for educational purpouse only
 
 ---
 
-## ⭐ Acknowledgement
 
-I would like to thank **CodeAlpha** for providing this opportunity to build a real-world Full Stack MERN application and enhance my web development skills.
-
----
 
 ## 🚀 Deploying the API to Render and the frontend to Vercel
 
